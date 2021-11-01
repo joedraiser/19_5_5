@@ -4,6 +4,7 @@
 int main()
 {
     std::ifstream file;
+    std::string answer, input;
     bool played[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
     int yourPoints=0, theirPoints=0;
     char buffer[100];
@@ -45,7 +46,27 @@ int main()
 
         file.close();
         played[currentPos]=true;
+
+        file.open(questionsPath+std::to_string(currentPos+1)+"_ans.txt");
+        file >> answer;
+        std::cin >> input;
+        if(answer==input)
+        {
+            std::cout << "correct\n";
+            yourPoints++;
+        }
+        else
+        {
+            std::cout << "incorrect\n";
+            theirPoints++;
+        }
+        file.close();
     }
+
+    if(yourPoints>=6)
+        std::cout << "You won";
+    else
+        std::cout << "You lose";
 
     return 0;
 }
